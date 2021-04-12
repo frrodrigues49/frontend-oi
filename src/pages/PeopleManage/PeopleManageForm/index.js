@@ -13,7 +13,7 @@ function PeopleManageForm() {
   const [data, setData] = useState({
     id: id || null,
     default: {
-      person_type: "",
+      type: "pfisica",
       name: "",
       cpf_cnpj: "",
       uf: "",

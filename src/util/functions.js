@@ -1,5 +1,5 @@
-export const handleChange = (e, { data, setData }) => {
+export const handleChange = (e, vlr, { data, setData }) => {
   const auxValues = { ...data };
-  auxValues.default[e.target.name] = e.target.value;
+  auxValues.default[e.target.name] = vlr;
   setData(auxValues);
 };

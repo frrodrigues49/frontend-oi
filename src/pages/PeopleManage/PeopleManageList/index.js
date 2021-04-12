@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Card from "../../../components/Card";
+import { ButtonNew } from "./styles";
 
 function PeopleManage() {
   return (
@@ -10,11 +11,11 @@ function PeopleManage() {
       actionLink="/"
     >
       <div className="row">
-        <div className="col-12 ">
+        <ButtonNew className="col-12 ">
           <Link to="/manage/create">
             <button className="btn btn-success">Criar uma Nova Pessoa</button>
           </Link>
-        </div>
+        </ButtonNew>
 
         <div className="table-responsive col-12">
           <table className="table small">

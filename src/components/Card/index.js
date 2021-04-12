@@ -9,7 +9,7 @@ function Card({ children, title, actionLink, textLink }) {
           <h5 className="card-title" style={{ borderBottom: "1px solid" }}>
             {title}
           </h5>
-          <p className="card-text">{children}</p>
+          <div className="card-text">{children}</div>
           <Link to={actionLink} className="card-link">
             {textLink}
           </Link>

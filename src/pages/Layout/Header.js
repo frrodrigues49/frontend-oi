@@ -14,17 +14,17 @@ function Header() {
               y1="12.379%"
               y2="81.618%"
             >
-              <stop offset="0%" stop-color="#50B748"></stop>
-              <stop offset="50%" stop-color="#50B748"></stop>
-              <stop offset="56%" stop-color="#56B946"></stop>
-              <stop offset="64%" stop-color="#66BE3F"></stop>
-              <stop offset="73%" stop-color="#81C734"></stop>
-              <stop offset="82%" stop-color="#A7D424"></stop>
-              <stop offset="93%" stop-color="#D7E410"></stop>
-              <stop offset="100%" stop-color="#FFF100"></stop>
+              <stop offset="0%" stopColor="#50B748"></stop>
+              <stop offset="50%" stopColor="#50B748"></stop>
+              <stop offset="56%" stopColor="#56B946"></stop>
+              <stop offset="64%" stopColor="#66BE3F"></stop>
+              <stop offset="73%" stopColor="#81C734"></stop>
+              <stop offset="82%" stopColor="#A7D424"></stop>
+              <stop offset="93%" stopColor="#D7E410"></stop>
+              <stop offset="100%" stopColor="#FFF100"></stop>
             </linearGradient>
           </defs>
-          <g fill="none" fill-rule="nonzero">
+          <g fill="none" fillRule="nonzero">
             <path
               fill="url(#oilogo-linearGradient-85)"
               d="M20.747 43.636c5.7 1.07 14.09.286 14.067-9.402-.036-15.56 11.787-17.918 5.178-27.304C31.99-4.432 5.075-1.84.789 14.837c-3.798 14.778 6.644 26.298 19.958 28.8z"
