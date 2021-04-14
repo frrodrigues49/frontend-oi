@@ -1,47 +1,61 @@
 import { api } from "../../../services/api";
+import { formatDate } from "../../../util/functions";
 
-export const handleSubmit = async (
-  e,
-  { isEdit, id, data, setData, setSuccess, setError, history }
-) => {
+export const handleSubmit = async (e, { isEdit, id, data, history }) => {
   e.preventDefault();
 
   try {
     if (!isEdit) {
-      const response = await api.post("people", {
-        name: data.default.name
-      });
-
-      const { cashier_banks } = response.data;
-
-      await setData({
-        ...data,
-        id: cashier_banks.id,
-        default: {
-          name: cashier_banks.name
-        }
+      await api.post("person", {
+        kind: data.default.kind,
+        name: data.default.name,
+        document: data.default.document,
+        uf: data.default.uf,
+        city: data.default.city,
+        birth_date: data.default.birth_date,
+        phone: data.default.phone
       });
     } else {
-      const response = await api.put(`people/${id}`, {
-        name: data.default.name
-      });
-
-      const { cashier_banks } = response.data;
-
-      await setData({
-        ...data,
-        id: cashier_banks.id,
-        default: {
-          name: cashier_banks.name
-        }
+      await api.put(`person/${id}`, {
+        kind: data.default.kind,
+        name: data.default.name,
+        document: data.default.document,
+        uf: data.default.uf,
+        city: data.default.city,
+        birth_date: data.default.birth_date,
+        phone: data.default.phone
       });
     }
-    setSuccess(true);
     setTimeout(() => {
       history.goBack();
     }, 500);
   } catch (error) {
-    setError(true);
+    console.log("Ops => ", error);
+  }
+};
+export const findDataToId = async (id, data, setData) => {
+  try {
+    const response = await api.get(`person/${id}`);
+    const { peoples } = response.data;
+
+    if (data) {
+      setData(prevState => {
+        return {
+          ...prevState,
+          id: peoples.id,
+          default: {
+            kind: peoples.kind,
+            name: peoples.name,
+            document: peoples.document,
+            uf: peoples.uf,
+            city: peoples.city,
+            birth_date: peoples.birth_date,
+            phone: peoples.phone
+          }
+        };
+      });
+    }
+  } catch (error) {
     console.log("Ops => ", error);
   }
 };

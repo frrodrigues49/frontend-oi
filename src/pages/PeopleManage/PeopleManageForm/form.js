@@ -1,8 +1,38 @@
 import React from "react";
-import { handleSubmit } from "./actions";
-import { handleChange } from "../../../util/functions";
+import InputMask from "react-input-mask";
+import { handleChange, formatDate } from "../../../util/functions";
 
-function Form({ initialData, data, setData }) {
+function Form({ initialData, data, setData, onSubmitForm }) {
+  console.log("Form -> initialData", formatDate(initialData.birth_date));
+  const renderPersonInput = () => {
+    switch (initialData.kind) {
+      case "pfisica":
+        return (
+          <InputMask
+            mask="999.999.999-99"
+            className="form-control"
+            placeholder="Informe o CPF"
+            name="document"
+            value={initialData.document}
+            onChange={e => handleChange(e, e.target.value, { data, setData })}
+          />
+        );
+      case "pjuridica":
+        return (
+          <InputMask
+            mask="99.999.999/9999-99"
+            className="form-control"
+            placeholder="Informe o CNPJ"
+            name="document"
+            value={initialData.document}
+            onChange={e => handleChange(e, e.target.value, { data, setData })}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="row">
       <div className="col-12" style={{ marginBottom: 30 }}>
@@ -11,9 +41,9 @@ function Form({ initialData, data, setData }) {
             className="custom-control-input"
             type="radio"
             id="pfisica"
-            name="type"
+            name="kind"
             value="pfisica"
-            checked={initialData.type === "pfisica"}
+            checked={initialData.kind === "pfisica"}
             onChange={e => handleChange(e, e.target.value, { data, setData })}
           />
           <label className="custom-control-label" htmlFor="pfisica">
@@ -26,9 +56,9 @@ function Form({ initialData, data, setData }) {
             className="custom-control-input"
             type="radio"
             id="pjuridica"
-            name="type"
+            name="kind"
             value="pjuridica"
-            checked={initialData.type === "pjuridica"}
+            checked={initialData.kind === "pjuridica"}
             onChange={e => handleChange(e, e.target.value, { data, setData })}
           />
           <label className="custom-control-label" htmlFor="pjuridica">
@@ -47,16 +77,7 @@ function Form({ initialData, data, setData }) {
           onChange={e => handleChange(e, e.target.value, { data, setData })}
         />
       </div>
-      <div className="form-group col-lg-6 col-12">
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Informe o CPF"
-          name="cpf_cnpj"
-          value={initialData.cpf_cnpj}
-          onChange={e => handleChange(e, e.target.value, { data, setData })}
-        />
-      </div>
+      <div className="form-group col-lg-6 col-12">{renderPersonInput()}</div>
       <div className="form-group col-md-6 col-12">
         <select
           className="form-control"
@@ -79,17 +100,18 @@ function Form({ initialData, data, setData }) {
       </div>
       <div className="form-group col-lg-6 col-12">
         <input
-          type="text"
+          type="date"
           className="form-control"
           placeholder="Data de Nascimento"
           name="birth_date"
-          value={initialData.birth_date}
+          value={formatDate(initialData.birth_date)}
           onChange={e => handleChange(e, e.target.value, { data, setData })}
         />
       </div>
       <div className="form-group col-lg-6 col-12">
-        <input
-          type="text"
+        <InputMask
+          mask="99 99999-9999"
+          maskChar=" "
           className="form-control"
           placeholder="Telefone"
           name="phone"
@@ -98,7 +120,7 @@ function Form({ initialData, data, setData }) {
         />
       </div>
       <div className="form-group col-12">
-        <button className="btn btn-success" onClick={handleSubmit}>
+        <button className="btn btn-success" onClick={e => onSubmitForm(e)}>
           Salvar
         </button>
       </div>

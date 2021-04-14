@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams, useRouteMatch } from "react-router-dom";
 import Card from "../../../components/Card";
-// import { findDataToId } from "./actions";
+import { findDataToId, handleSubmit } from "./actions";
 import Form from "./form";
 
 function PeopleManageForm() {
@@ -13,9 +13,9 @@ function PeopleManageForm() {
   const [data, setData] = useState({
     id: id || null,
     default: {
-      type: "pfisica",
+      kind: "pfisica",
       name: "",
-      cpf_cnpj: "",
+      document: "",
       uf: "",
       city: "",
       birth_date: "",
@@ -23,11 +23,20 @@ function PeopleManageForm() {
     }
   });
 
-  // useEffect(() => {
-  //   if (isEdit) {
-  //     findDataToId(id, data, setData, setError);
-  //   }
-  // }, [isEdit]);
+  const onSubmitForm = e => {
+    handleSubmit(e, {
+      isEdit,
+      id,
+      data,
+      history
+    });
+  };
+
+  useEffect(() => {
+    if (isEdit) {
+      findDataToId(id, data, setData);
+    }
+  }, [isEdit]);
 
   return (
     <Card
@@ -39,6 +48,7 @@ function PeopleManageForm() {
         initialData={data ? data.default : undefined}
         data={data}
         setData={setData}
+        onSubmitForm={onSubmitForm}
       />
     </Card>
   );

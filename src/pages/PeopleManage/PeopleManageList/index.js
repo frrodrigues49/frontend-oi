@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Card from "../../../components/Card";
+import TableList from "./TableList";
 import { ButtonNew } from "./styles";
 
-function PeopleManage() {
+function PeopleManage({ match }) {
   return (
     <Card
       title="Gerenciamento de Pessoas Físicas e Jurídicas"
@@ -18,19 +19,7 @@ function PeopleManage() {
         </ButtonNew>
 
         <div className="table-responsive col-12">
-          <table className="table small">
-            <thead>
-              <tr>
-                <th>Tipo</th>
-                <th>Nome/Razão Social</th>
-                <th>CPF/CNPJ</th>
-                <th>Telefone</th>
-                <th>Cidade</th>
-                <th colSpan="2">Açoes</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
+          <TableList match={match} />
         </div>
       </div>
     </Card>
