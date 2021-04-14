@@ -1,9 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import InputMask from "react-input-mask";
-import { handleChange, formatDate } from "../../../util/functions";
+import {
+  handleChange,
+  loadUfs,
+  loadCities,
+  formatDate
+} from "../../../util/functions";
 
 function Form({ initialData, data, setData, onSubmitForm }) {
-  console.log("Form -> initialData", formatDate(initialData.birth_date));
+  const [ufs, setUfs] = useState([]);
+  const [cities, setCities] = useState([]);
+  const [ufSelectd, setUfSelectd] = useState("");
+
+  useEffect(() => {
+    loadUfs(setUfs);
+  }, []);
+
+  useEffect(() => {
+    loadCities(ufSelectd, setCities);
+  }, [ufSelectd]);
+
   const renderPersonInput = () => {
     switch (initialData.kind) {
       case "pfisica":
@@ -83,9 +99,16 @@ function Form({ initialData, data, setData, onSubmitForm }) {
           className="form-control"
           name="uf"
           value={initialData.uf}
-          onChange={e => handleChange(e, e.target.value, { data, setData })}
+          onChange={e =>
+            handleChange(e, e.target.value, { data, setData, setUfSelectd })
+          }
         >
           <option value="">Selecione UF</option>
+          {ufs.map(item => (
+            <option key={item._id} value={item.uf}>
+              {item.uf}
+            </option>
+          ))}
         </select>
       </div>
       <div className="form-group col-md-6 col-12">
@@ -94,8 +117,14 @@ function Form({ initialData, data, setData, onSubmitForm }) {
           name="city"
           value={initialData.city}
           onChange={e => handleChange(e, e.target.value, { data, setData })}
+          disabled={initialData.uf ? false : true}
         >
           <option value="">Selecione Cidade</option>
+          {cities.map(item => (
+            <option key={item._id} value={item.name}>
+              {item.name}
+            </option>
+          ))}
         </select>
       </div>
       <div className="form-group col-lg-6 col-12">

@@ -9,7 +9,7 @@ function PeopleManageForm() {
   const { url } = useRouteMatch();
   const history = useHistory();
 
-  const [isEdit, setIsEdit] = useState(url.includes("edit"));
+  const [isEdit] = useState(url.includes("edit"));
   const [data, setData] = useState({
     id: id || null,
     default: {

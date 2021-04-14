@@ -1,7 +1,28 @@
-export const handleChange = (e, vlr, { data, setData }) => {
+import { api } from "../services/api";
+
+export const handleChange = (e, vlr, { data, setData, setUfSelectd }) => {
   const auxValues = { ...data };
-  auxValues.default[e.target.name] = vlr;
+  const inputName = e.target.name;
+  auxValues.default[inputName] = vlr;
+
+  if (inputName === "uf") {
+    setUfSelectd(vlr);
+  }
   setData(auxValues);
+};
+
+export const loadUfs = async setUfs => {
+  const response = await api.get("uf");
+  const { ufs } = response.data;
+
+  setUfs(ufs);
+};
+
+export const loadCities = async (ufSelectd, setCities) => {
+  const response = await api.get(`city/${ufSelectd}`);
+  const { cities } = response.data;
+
+  setCities(cities);
 };
 
 export function getDateNew() {

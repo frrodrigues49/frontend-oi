@@ -1,5 +1,4 @@
 import { api } from "../../../services/api";
-import { formatDate } from "../../../util/functions";
 
 export const handleSubmit = async (e, { isEdit, id, data, history }) => {
   e.preventDefault();
