@@ -1,9 +1,5 @@
 import styled, { keyframes } from "styled-components";
 
-export const InputRadio = styled.div`
-  margin-bottom: 30px;
-`;
-
 const Heading = keyframes`
   0% { top: -3.125em; }
   100% { top: 1em;}

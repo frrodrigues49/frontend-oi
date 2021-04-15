@@ -1,7 +1,23 @@
 import { api } from "../../../services/api";
 
-export const handleSubmit = async (e, { isEdit, id, data, history }) => {
+export const handleSubmit = async (
+  e,
+  { isEdit, id, data, history, setAlert, setMsg }
+) => {
   e.preventDefault();
+
+  const { kind, name, document, uf, city, birth_date, phone } = data.default;
+
+  if (!kind || !name || !document || !uf || !city || !birth_date || !phone) {
+    setAlert(true);
+    setMsg("Campos obrigatórios");
+
+    setTimeout(() => {
+      setAlert(false);
+      setMsg("");
+    }, 3000);
+    return false;
+  }
 
   try {
     if (!isEdit) {

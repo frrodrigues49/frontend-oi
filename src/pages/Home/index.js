@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import InputMask from "react-input-mask";
 import Card from "../../components/Card";
 import { handleChange, loadUfs, loadCities } from "../../util/functions";
-import { InputRadio } from "./styles";
+import { InputRadio, Mensage } from "./styles";
 import TableList from "./TableList";
 import { handleSubmit } from "./actions";
 
@@ -11,6 +11,8 @@ function Home() {
   const [cities, setCities] = useState([]);
   const [rows, setRows] = useState([]);
   const [ufSelectd, setUfSelectd] = useState("");
+  const [alert, setAlert] = useState(false);
+  const [msg, setMsg] = useState("");
   const [data, setData] = useState({
     default: {
       kind: "pfisica",
@@ -141,7 +143,9 @@ function Home() {
             <div className="form-group col-12">
               <button
                 className="btn btn-success col-12"
-                onClick={e => handleSubmit(e, { data, setRows })}
+                onClick={e =>
+                  handleSubmit(e, { data, setRows, setAlert, setMsg })
+                }
               >
                 BUSCAR
               </button>
@@ -150,6 +154,11 @@ function Home() {
         </div>
 
         <div className="table-responsive col-lg-6 col-12">
+          {alert && (
+            <Mensage className="col-12 alert alert-danger small" role="alert">
+              {msg}
+            </Mensage>
+          )}
           <TableList rows={rows} />
         </div>
       </div>

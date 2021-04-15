@@ -6,15 +6,24 @@ import {
   loadCities,
   formatDate
 } from "../../../util/functions";
+import { Mensage } from "./styles";
 
-function Form({ initialData, data, setData, onSubmitForm }) {
+function Form({ initialData, data, setData, isEdit, onSubmitForm }) {
   const [ufs, setUfs] = useState([]);
   const [cities, setCities] = useState([]);
-  const [ufSelectd, setUfSelectd] = useState("");
+  const [ufSelectd, setUfSelectd] = useState(initialData.uf);
+  const [alert, setAlert] = useState(false);
+  const [msg, setMsg] = useState("");
 
   useEffect(() => {
     loadUfs(setUfs);
   }, []);
+
+  useEffect(() => {
+    if (isEdit) {
+      loadCities(initialData.uf, setCities);
+    }
+  }, [data]);
 
   useEffect(() => {
     loadCities(ufSelectd, setCities);
@@ -83,6 +92,14 @@ function Form({ initialData, data, setData, onSubmitForm }) {
         </div>
       </div>
 
+      <div className="col-12">
+        {alert && (
+          <Mensage className="col-12 alert alert-danger small" role="alert">
+            {msg}
+          </Mensage>
+        )}
+      </div>
+
       <div className="form-group col-lg-6 col-12">
         <input
           type="text"
@@ -149,7 +166,10 @@ function Form({ initialData, data, setData, onSubmitForm }) {
         />
       </div>
       <div className="form-group col-12">
-        <button className="btn btn-success" onClick={e => onSubmitForm(e)}>
+        <button
+          className="btn btn-success"
+          onClick={e => onSubmitForm(e, { setAlert, setMsg })}
+        >
           Salvar
         </button>
       </div>

@@ -23,12 +23,14 @@ function PeopleManageForm() {
     }
   });
 
-  const onSubmitForm = e => {
+  const onSubmitForm = (e, { setAlert, setMsg }) => {
     handleSubmit(e, {
       isEdit,
       id,
       data,
-      history
+      history,
+      setAlert,
+      setMsg
     });
   };
 
@@ -48,6 +50,7 @@ function PeopleManageForm() {
         initialData={data ? data.default : undefined}
         data={data}
         setData={setData}
+        isEdit={isEdit}
         onSubmitForm={onSubmitForm}
       />
     </Card>
